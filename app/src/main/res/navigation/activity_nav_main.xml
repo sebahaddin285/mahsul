@@ -6,16 +6,6 @@
     app:startDestination="@id/mapFragment">
 
     <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.stear.sondaj.view.SignInFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.stear.sondaj.view.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
-    <fragment
         android:id="@+id/mapFragment"
         android:name="com.stear.sondaj.view.MapFragment"
         android:label="fragment_map"
