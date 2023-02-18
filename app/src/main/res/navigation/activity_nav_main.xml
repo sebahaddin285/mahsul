@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_nav_main"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.stear.sondaj.view.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.stear.sondaj.view.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.stear.sondaj.view.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/messageListFragment"
+        android:name="com.stear.sondaj.view.MessageListFragment"
+        android:label="fragment_message_list"
+        tools:layout="@layout/fragment_message_list" />
+    <fragment
+        android:id="@+id/sondajFragment"
+        android:name="com.stear.sondaj.view.SondajFragment"
+        android:label="fragment_sondaj"
+        tools:layout="@layout/fragment_sondaj" />
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.stear.sondaj.view.MessageFragment"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" />
+</navigation>
