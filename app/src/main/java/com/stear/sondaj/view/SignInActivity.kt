@@ -1,8 +1,10 @@
 package com.stear.sondaj.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.stear.sondaj.MainActivity
 import com.stear.sondaj.R
 import com.stear.sondaj.databinding.ActivitySignInBinding
 
@@ -12,8 +14,6 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
       _binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
-        _binding.button.setOnClickListener(){
 
-        }
     }
 }
