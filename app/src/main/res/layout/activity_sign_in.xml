@@ -47,7 +47,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="20dp"
-                android:hint="örnek@gmail.com"
+                android:hint="Email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +90,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordText"
                     android:layout_width="match_parent"
+                    android:inputType="textPassword"
                     android:layout_height="match_parent"
                     android:maxLength="15" />
             </com.google.android.material.textfield.TextInputLayout>
