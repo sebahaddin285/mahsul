@@ -7,6 +7,10 @@
         android:icon="@drawable/map_icon"
         android:title="Harita" />
     <item
+        android:id="@+id/mahsulFragment"
+        android:icon="@drawable/titleicon"
+        android:title="Mahsul Bul" />
+    <item
         android:id="@+id/sondajFragment"
         android:icon="@drawable/drill_icon"
         android:title="Sondaj" />
