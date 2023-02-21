@@ -1,10 +1,10 @@
-package com.stear.sondaj.view
+package com.stear.mahsul.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import com.stear.sondaj.R
-import com.stear.sondaj.databinding.ActivitySignUpBinding
+import com.stear.mahsul.R
+import com.stear.mahsul.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var _binding : ActivitySignUpBinding
@@ -12,8 +12,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
-        _binding.button1.setOnClickListener(){
-
+        _binding.signUpButton.setOnClickListener(){
 
         }
     }

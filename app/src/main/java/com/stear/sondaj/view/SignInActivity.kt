@@ -1,12 +1,12 @@
-package com.stear.sondaj.view
+package com.stear.mahsul.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import com.stear.sondaj.MainActivity
-import com.stear.sondaj.R
-import com.stear.sondaj.databinding.ActivitySignInBinding
+import com.stear.mahsul.MainActivity
+import com.stear.mahsul.R
+import com.stear.mahsul.databinding.ActivitySignInBinding
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var _binding: ActivitySignInBinding

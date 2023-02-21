@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_nav_main"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/mahsulFragment">
 
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.stear.sondaj.view.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/messageListFragment"
         android:name="com.stear.sondaj.view.MessageListFragment"

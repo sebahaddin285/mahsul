@@ -1,4 +1,4 @@
-package com.stear.sondaj
+package com.stear.mahsul
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.stear.sondaj.databinding.ActivityMainBinding
+import com.stear.mahsul.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
