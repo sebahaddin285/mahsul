@@ -3,17 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mapFragment"
-        android:icon="@drawable/map_icon"
-        android:title="Harita" />
-    <item
         android:id="@+id/mahsulFragment"
         android:icon="@drawable/titleicon"
         android:title="Mahsul Bul" />
     <item
-        android:id="@+id/sondajFragment"
+        android:id="@+id/mahsulListFragment"
         android:icon="@drawable/drill_icon"
-        android:title="Sondaj" />
+        android:title="Mahsul Ekle" />
     <item
         android:id="@+id/messageFragment"
         android:icon="@drawable/message_icon"

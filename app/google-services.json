@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "756679858378",
+    "project_id": "mahsul-a8314",
+    "storage_bucket": "mahsul-a8314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756679858378:android:8bef39cce20f6be5c67c33",
+        "android_client_info": {
+          "package_name": "com.stear.mahsul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756679858378-1hmolct76o8dlo5r27i8u1t8ohpogdbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDusUjCP6gWTirUZwKE2gJhqgu3S4afCAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756679858378-1hmolct76o8dlo5r27i8u1t8ohpogdbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

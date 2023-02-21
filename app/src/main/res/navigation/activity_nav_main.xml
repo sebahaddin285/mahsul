@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/messageListFragment"
-        android:name="com.stear.sondaj.view.MessageListFragment"
+        android:name="com.stear.mahsul.view.MessageListFragment"
         android:label="fragment_message_list"
         tools:layout="@layout/fragment_message_list" />
     <fragment
-        android:id="@+id/sondajFragment"
-        android:name="com.stear.sondaj.view.SondajFragment"
-        android:label="fragment_sondaj"
-        tools:layout="@layout/fragment_sondaj" />
-    <fragment
         android:id="@+id/messageFragment"
-        android:name="com.stear.sondaj.view.MessageFragment"
+        android:name="com.stear.mahsul.view.MessageFragment"
         android:label="fragment_message"
         tools:layout="@layout/fragment_message" />
     <fragment
         android:id="@+id/mahsulFragment"
-        android:name="com.stear.sondaj.view.MahsulFragment"
+        android:name="com.stear.mahsul.view.MahsulFragment"
         android:label="fragment_mahsul"
         tools:layout="@layout/fragment_mahsul" />
+    <fragment
+        android:id="@+id/mahsulListFragment"
+        android:name="com.stear.mahsul.view.MahsulListFragment"
+        android:label="fragment_mahsul_list"
+        tools:layout="@layout/fragment_mahsul_list" />
 </navigation>
