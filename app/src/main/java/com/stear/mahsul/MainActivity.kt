@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        Util.makeAlerDialog(this,FirebaseAuth.getInstance().currentUser?.email.toString())
+       // Util.makeAlerDialog(this,FirebaseAuth.getInstance().currentUser?.email.toString())
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         NavigationUI.setupWithNavController(_binding.bottomNav,navHostFragment.navController)
 

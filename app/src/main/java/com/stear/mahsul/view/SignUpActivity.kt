@@ -3,6 +3,7 @@ package com.stear.mahsul.view
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -44,12 +45,29 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
             val password2 = _binding.passwordText1.text.toString().trim()
             if (eMail != "" && password1 != "" && password2 != "") {
                 if (password1 == password2) {
-                    viewModel.signUp(eMail, password1)
+                    if (Util.isValidPassword(password1)){
+                        viewModel.signUp(eMail, password1)
+                    }else{
+                        Util.makeAlerDialog(this,"-Şifre En Az 6 Karakter Olmalıdır\n" +
+                                                              "-Sayı ve Harflerden Oluşmalıdır\n"
+                                                              ,"Hata",R.drawable.titleicon)
+                    }
+
                 } else {
-                    Util.makeAlerDialog(this, "Şifreler Aynı Değil")
+                    Util.makeAlerDialog(
+                        this,
+                        "Şifreler Aynı Değil",
+                        "Hatalı Giriş",
+                        R.drawable.titleicon
+                    )
                 }
             } else {
-                Util.makeAlerDialog(this, "Boş Bırakılan alanlar Var")
+                Util.makeAlerDialog(
+                    this,
+                    "Boş Bırakılan alanlar Var",
+                    "Hatalı Giriş",
+                    R.drawable.titleicon
+                )
             }
 
 
@@ -57,17 +75,18 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
     }
 
     override fun onSuccess() {
-        _binding.dogrulamaImage.visibility = View.VISIBLE
-        _binding.dogrulamaText.visibility = View.VISIBLE
-        object : CountDownTimer(10000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() {
-                finish()
-            }
-        }.start()
+        val ad = AlertDialog.Builder(this)
+        ad.setMessage("Lütfen Mailinize Gelen Doğrulamayı Onaylayınız")
+        ad.setTitle("Başarılı")
+        ad.setIcon(R.drawable.baseline_verified_24)
+
+        ad.setPositiveButton("Tamam") { dialogInterface, i ->
+            finish()
+        }
+        ad.create().show()
     }
 
     override fun onFailure(message: String) {
-        Util.makeAlerDialog(this, "Bir Hata Oluştu")
+        Util.makeAlerDialog(this, "Bir Hata Oluştu", "Hatalı İşlem", R.drawable.titleicon)
     }
 }

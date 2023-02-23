@@ -2,4 +2,5 @@
     <string name="app_name">Mahsul</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="client_id">756679858378-1hmolct76o8dlo5r27i8u1t8ohpogdbb.apps.googleusercontent.com</string>
 </resources>
