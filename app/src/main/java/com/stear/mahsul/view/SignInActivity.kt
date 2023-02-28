@@ -1,10 +1,13 @@
 package com.stear.mahsul.view
 
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -67,7 +70,7 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
         viewModel.authListener = this
         viewModel.resetListener = this
 
-        //currentUser()
+        currentUser()
 
 
         _binding.signInButton.setOnClickListener() {
@@ -161,7 +164,7 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
 
     override fun onResume() {
         super.onResume()
-        //currentUser()
+        currentUser()
     }
 
     override fun onSuccess() {
@@ -217,8 +220,38 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
     }
 
     private fun signIn() {
-        val signInIntent = gsc.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+
+
+        val ad = AlertDialog.Builder(this)
+        ad.setMessage("Giriş Yaparak Gizlilik Politikası ve Kullanım Şartlarını Kabul Etmiş Olursunuz")
+        ad.setTitle("Politikamız")
+        ad.setIcon(R.drawable.titleicon)
+
+        ad.setPositiveButton("Tamam"){dialogInterface,i ->
+            val signInIntent = gsc.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+        ad.setNegativeButton("Gizlilik Politikası"){dialogInterface,i ->
+            openPolitics("https://raw.githubusercontent.com/sebahaddin285/mahsul-politika/main/Gizlilik-S%C3%B6zle%C5%9Fmesi.txt")
+        }
+        ad.setNeutralButton("Kullanım Şartları"){dialogInterface,i ->
+            openPolitics("https://raw.githubusercontent.com/sebahaddin285/mahsul-politika/main/kullan%C4%B1m%20%C5%9Fartlar%C4%B1.txt")
+        }
+
+        ad.create().show()
+
+    }
+    fun openPolitics(link : String){
+        try {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+            startActivity(browserIntent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                this, "No application can handle this request."
+                        + " Please install a webbrowser", Toast.LENGTH_LONG
+            ).show()
+            e.printStackTrace()
+        }
     }
 
 

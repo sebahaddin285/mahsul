@@ -25,4 +25,9 @@
         android:name="com.stear.mahsul.view.MahsulListFragment"
         android:label="fragment_mahsul_list"
         tools:layout="@layout/fragment_mahsul_list" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.stear.mahsul.view.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>

@@ -1,13 +1,14 @@
 package com.stear.mahsul.view
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.ktx.Firebase
 import com.stear.mahsul.R
 import com.stear.mahsul.databinding.ActivitySignUpBinding
 import com.stear.mahsul.repository.Repository
@@ -40,38 +41,30 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         viewModel.authListener = this
 
         _binding.signUpButton.setOnClickListener() {
-            val eMail = _binding.emailText.text.toString().trim()
-            val password1 = _binding.passwordText.text.toString().trim()
-            val password2 = _binding.passwordText1.text.toString().trim()
-            if (eMail != "" && password1 != "" && password2 != "") {
-                if (password1 == password2) {
-                    if (Util.isValidPassword(password1)){
-                        viewModel.signUp(eMail, password1)
-                    }else{
-                        Util.makeAlerDialog(this,"-Şifre En Az 6 Karakter Olmalıdır\n" +
-                                                              "-Sayı ve Harflerden Oluşmalıdır\n"
-                                                              ,"Hata",R.drawable.titleicon)
-                    }
 
-                } else {
-                    Util.makeAlerDialog(
-                        this,
-                        "Şifreler Aynı Değil",
-                        "Hatalı Giriş",
-                        R.drawable.titleicon
-                    )
-                }
-            } else {
-                Util.makeAlerDialog(
-                    this,
-                    "Boş Bırakılan alanlar Var",
-                    "Hatalı Giriş",
-                    R.drawable.titleicon
-                )
+            val ad = AlertDialog.Builder(this)
+            ad.setMessage("Kayıt Olup Uygulamayı Kullanarak Gizlilik Politikası ve Kullanım Sözleşmesini Kabul Etmiş Olursunuz")
+            ad.setTitle("Politikamız")
+            ad.setIcon(R.drawable.titleicon)
+
+            ad.setPositiveButton("Tamam"){dialogInterface,i ->
+                signUp()
             }
+            ad.setNegativeButton("Gizlilik Politikası"){dialogInterface,i ->
+                openPolitics("https://raw.githubusercontent.com/sebahaddin285/mahsul-politika/main/Gizlilik-S%C3%B6zle%C5%9Fmesi.txt")
+            }
+            ad.setNeutralButton("Kullanım Şartları"){dialogInterface,i ->
+                openPolitics("https://raw.githubusercontent.com/sebahaddin285/mahsul-politika/main/kullan%C4%B1m%20%C5%9Fartlar%C4%B1.txt")
+            }
+
+            ad.create().show()
 
 
         }
+
+
+
+
     }
 
     override fun onSuccess() {
@@ -89,4 +82,55 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
     override fun onFailure(message: String) {
         Util.makeAlerDialog(this, "Bir Hata Oluştu", "Hatalı İşlem", R.drawable.titleicon)
     }
+
+    fun openPolitics(link: String) {
+        try {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+            startActivity(browserIntent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                this, "No application can handle this request."
+                        + " Please install a webbrowser", Toast.LENGTH_LONG
+            ).show()
+            e.printStackTrace()
+        }
+    }
+    fun signUp(){
+        val eMail = _binding.emailText.text.toString().trim()
+        val password1 = _binding.passwordText.text.toString().trim()
+        val password2 = _binding.passwordText1.text.toString().trim()
+        if (eMail != "" && password1 != "" && password2 != "") {
+            if (password1 == password2) {
+                if (Util.isValidPassword(password1)) {
+                    viewModel.signUp(eMail, password1)
+                } else {
+                    Util.makeAlerDialog(
+                        this,
+                        "-Şifre En Az 6 Karakter Olmalıdır\n" +
+                                "-Sayı ve Harflerden Oluşmalıdır\n",
+                        "Hata",
+                        R.drawable.titleicon
+                    )
+                }
+
+            } else {
+                Util.makeAlerDialog(
+                    this,
+                    "Şifreler Aynı Değil",
+                    "Hatalı Giriş",
+                    R.drawable.titleicon
+                )
+            }
+        } else {
+            Util.makeAlerDialog(
+                this,
+                "Boş Bırakılan alanlar Var",
+                "Hatalı Giriş",
+                R.drawable.titleicon
+            )
+        }
+
+    }
+
+
 }
