@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import com.stear.mahsul.MainActivity
 import com.stear.mahsul.R
 import com.stear.mahsul.databinding.ActivitySignInBinding
@@ -41,8 +42,9 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
 
     private lateinit var _binding: ActivitySignInBinding
     private lateinit var viewModel: SignInActivityViewModel
-    private lateinit var gsc : GoogleSignInClient
-    private lateinit var gso : GoogleSignInOptions
+    private lateinit var gsc: GoogleSignInClient
+    private lateinit var gso: GoogleSignInOptions
+    private val auth = Firebase.auth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +53,11 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
         var intent: Intent?
 
         //sign in with google
-         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(applicationContext.getString(R.string.client_id))
             .requestEmail()
             .build()
-         gsc = GoogleSignIn.getClient(this,gso)
+        gsc = GoogleSignIn.getClient(this, gso)
 
         //Mvvm
         val repo: Repository by lazy { Repository() }
@@ -126,6 +128,32 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
 
         }
 
+        viewModel.userInfo.observe(this) {
+            if (it.uId == "") {
+                val map = HashMap<String, Any>()
+                map.put("uId", auth.currentUser!!.uid)
+                map.put("userName", "-")
+                map.put("userPhone", "5")
+                map.put("ilanSayisi", 1)
+                map.put("isPremium", false)
+                map.put("photoUrl", "")
+                viewModel.userSave(map).addOnSuccessListener {
+                    intent = Intent(applicationContext, MainActivity::class.java)
+                    intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                }.addOnFailureListener(){
+                    Toast.makeText(this,it.message.toString(),Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                intent = Intent(applicationContext, MainActivity::class.java)
+                intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+        }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -138,13 +166,10 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
 
-                viewModel.firebaseAuthWithGoogle(account).observe(this){
-                    if (it){
-                        intent = Intent(applicationContext, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        finish()
-                    }else{
+                viewModel.firebaseAuthWithGoogle(account).observe(this) {
+                    if (it) {
+                        viewModel.doesHasUserInfo(auth.currentUser!!.uid)
+                    } else {
                         Util.makeAlerDialog(
                             this,
                             "Bir Hata Meydan Geldi",
@@ -169,10 +194,7 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
 
     override fun onSuccess() {
         if (FirebaseAuth.getInstance().currentUser?.isEmailVerified == true) {
-            intent = Intent(applicationContext, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+            viewModel.doesHasUserInfo(auth.currentUser!!.uid)
         } else {
             Util.makeAlerDialog(
                 this,
@@ -210,8 +232,8 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
 
     }
 
-    fun currentUser() {
-        val currentUser = Firebase.auth.currentUser
+    private fun currentUser() {
+        val currentUser = auth.currentUser
         if (currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -227,21 +249,22 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
         ad.setTitle("Politikamız")
         ad.setIcon(R.drawable.titleicon)
 
-        ad.setPositiveButton("Tamam"){dialogInterface,i ->
+        ad.setPositiveButton("Tamam") { dialogInterface, i ->
             val signInIntent = gsc.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-        ad.setNegativeButton("Gizlilik Politikası"){dialogInterface,i ->
+        ad.setNegativeButton("Gizlilik Politikası") { dialogInterface, i ->
             openPolitics("https://raw.githubusercontent.com/sebahaddin285/mahsul-politika/main/Gizlilik-S%C3%B6zle%C5%9Fmesi.txt")
         }
-        ad.setNeutralButton("Kullanım Şartları"){dialogInterface,i ->
+        ad.setNeutralButton("Kullanım Şartları") { dialogInterface, i ->
             openPolitics("https://raw.githubusercontent.com/sebahaddin285/mahsul-politika/main/kullan%C4%B1m%20%C5%9Fartlar%C4%B1.txt")
         }
 
         ad.create().show()
 
     }
-    fun openPolitics(link : String){
+
+    private fun openPolitics(link: String) {
         try {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
             startActivity(browserIntent)
@@ -253,6 +276,8 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
             e.printStackTrace()
         }
     }
+
+
 
 
 

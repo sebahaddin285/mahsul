@@ -4,7 +4,9 @@ package com.stear.mahsul.repository
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.stear.mahsul.model.Users
 import com.stear.mahsul.network.FirebaseSource
 
 class Repository() {
@@ -17,4 +19,11 @@ class Repository() {
 
     fun signInWithGoogle(acct: GoogleSignInAccount) =
         FirebaseSource.signInWithGoogle(acct)
+
+    fun doesHasUserInfo(uUid : String) = FirebaseSource.doesHasUserInfo(uUid)
+
+    fun userSave(map : HashMap<String,Any>) = FirebaseSource.userSave(map)
+
+    fun getDb() = FirebaseSource.getDb()
+
 }

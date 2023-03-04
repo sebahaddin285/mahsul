@@ -1,13 +1,17 @@
 package com.stear.mahsul.utils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
-import com.stear.mahsul.R
-import com.stear.mahsul.view.SignUpActivity
+import java.io.ByteArrayOutputStream
+import kotlin.math.roundToInt
+
 
 class Util {
     companion object{
@@ -23,6 +27,30 @@ class Util {
             }
             ad.create().show()
         }
+        fun reduceBitmapSize(bitmap: Bitmap, MAX_SIZE: Int): Bitmap? {
+            val ratioSquare: Double
+            val bitmapHeight: Int = bitmap.height
+            val bitmapWidth: Int = bitmap.width
+            ratioSquare = (bitmapHeight * bitmapWidth / MAX_SIZE).toDouble()
+            if (ratioSquare <= 1) return bitmap
+            val ratio = Math.sqrt(ratioSquare)
+            Log.d("mylog", "Ratio: $ratio")
+            val requiredHeight = (bitmapHeight / ratio).roundToInt()
+            val requiredWidth = (bitmapWidth / ratio).roundToInt()
+            return Bitmap.createScaledBitmap(bitmap, requiredWidth, requiredHeight, true)
+        }
+
+        fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+            val bytes = ByteArrayOutputStream()
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            val path = MediaStore.Images.Media.insertImage(
+                inContext.contentResolver,
+                inImage,
+                "Title",
+                null
+            )
+            return Uri.parse(path)
+        }
 
         fun isValidPassword(password: String): Boolean {
             if (password.length < 6) return false
@@ -30,6 +58,12 @@ class Util {
                 if (!it.isLetterOrDigit()) return false
             }
 
+            return true
+        }
+        fun isValidNumber(number: String): Boolean {
+            number.forEach {
+                if (!it.isDigit()) return false
+            }
             return true
         }
 

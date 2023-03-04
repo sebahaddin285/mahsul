@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def nav_version = "2.5.1"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -58,7 +59,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-compiler:2.5.1"
     //Firebase
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     //Firebase Auth
@@ -69,6 +70,9 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
+    implementation 'com.google.firebase:firebase-storage-ktx'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
 
 
 
