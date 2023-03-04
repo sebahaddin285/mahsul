@@ -37,6 +37,8 @@ class ProfileFragment : Fragment() {
     private var selectedImageUri: Uri? = null
     private val auth = Firebase.auth
     private val storage = Firebase.storage
+    private var userOldName : String? = null
+    private var userOldPhone : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +57,7 @@ class ProfileFragment : Fragment() {
             viewModelFactory
         )[ProfileFragmentViewModel::class.java]
         _binding.progressBar.visibility = View.VISIBLE
+
 
 
         viewModel.doesHasUserInfo(auth.currentUser!!.uid)
@@ -78,6 +81,8 @@ class ProfileFragment : Fragment() {
                 if (it.photoUrl != "" ) Picasso.get().load(it.photoUrl).into(_binding.profileImage)
                 _binding.userNameText.setText(it.userName)
                 _binding.userPhoneText.setText(it.userPhone)
+                userOldName = it.userName
+                userOldPhone = it.userPhone
                 object : CountDownTimer(2000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {}
                     override fun onFinish() {
@@ -96,7 +101,7 @@ class ProfileFragment : Fragment() {
             val userName = _binding.userNameText.text.toString()
             val userPhone = _binding.userPhoneText.text.toString().trim()
             _binding.progressBar.visibility = View.VISIBLE
-            if (userName != "" && userPhone.length >= 10 && Util.isValidNumber(userPhone)) {
+            if (userName != "" && userPhone.length >= 10 && Util.isValidNumber(userPhone) && userOldName != userName || userOldPhone != userPhone) {
 
                 viewModel.userUpdate(
                     userName,
@@ -112,6 +117,7 @@ class ProfileFragment : Fragment() {
                     "Hata",
                     R.drawable.titleicon
                 )
+                _binding.progressBar.visibility = View.GONE
             }
 
 
