@@ -10,23 +10,25 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import java.io.ByteArrayOutputStream
+import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 
 class Util {
-    companion object{
+    companion object {
 
-        fun makeAlerDialog(context:Context,mesaj:String,title:String,icon:Int){
+        fun makeAlerDialog(context: Context, mesaj: String, title: String, icon: Int) {
             val ad = AlertDialog.Builder(context)
             ad.setMessage(mesaj)
             ad.setTitle(title)
             ad.setIcon(icon)
 
-            ad.setPositiveButton("Tamam"){dialogInterface,i ->
+            ad.setPositiveButton("Tamam") { dialogInterface, i ->
 
             }
             ad.create().show()
         }
+
         fun reduceBitmapSize(bitmap: Bitmap, MAX_SIZE: Int): Bitmap? {
             val ratioSquare: Double
             val bitmapHeight: Int = bitmap.height
@@ -60,6 +62,7 @@ class Util {
 
             return true
         }
+
         fun isValidNumber(number: String): Boolean {
             number.forEach {
                 if (!it.isDigit()) return false
@@ -69,9 +72,11 @@ class Util {
 
         fun isNetworkAvailable(context: Context?): Boolean {
             if (context == null) return false
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                val capabilities =
+                    connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                 if (capabilities != null) {
                     when {
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
@@ -92,6 +97,12 @@ class Util {
                 }
             }
             return false
+        }
+
+        fun currencyFormatter(num: String): String? {
+            val m = num.toDouble()
+            val formatter = DecimalFormat("###,###,###")
+            return formatter.format(m)
         }
 
 

@@ -3,31 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_nav_main"
-    app:startDestination="@id/mahsulFragment">
+    app:startDestination="@id/mahsulListFragment">
 
-    <fragment
-        android:id="@+id/messageListFragment"
-        android:name="com.stear.mahsul.view.MessageListFragment"
-        android:label="fragment_message_list"
-        tools:layout="@layout/fragment_message_list" />
-    <fragment
-        android:id="@+id/messageFragment"
-        android:name="com.stear.mahsul.view.MessageFragment"
-        android:label="fragment_message"
-        tools:layout="@layout/fragment_message" />
-    <fragment
-        android:id="@+id/mahsulFragment"
-        android:name="com.stear.mahsul.view.MahsulFragment"
-        android:label="fragment_mahsul"
-        tools:layout="@layout/fragment_mahsul" />
     <fragment
         android:id="@+id/mahsulListFragment"
         android:name="com.stear.mahsul.view.MahsulListFragment"
         android:label="fragment_mahsul_list"
-        tools:layout="@layout/fragment_mahsul_list" />
+        tools:layout="@layout/fragment_mahsul_list" >
+        <action
+            android:id="@+id/goToMahsulAdd"
+            app:destination="@id/mahsulAddFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.stear.mahsul.view.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/mahsulAddFragment"
+        android:name="com.stear.mahsul.view.MahsulAddFragment"
+        android:label="MahsulAddFragment"
+        tools:layout="@layout/fragment_mahsul_add"/>
 </navigation>

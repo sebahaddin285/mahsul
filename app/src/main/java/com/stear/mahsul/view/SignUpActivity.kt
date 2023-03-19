@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.stear.mahsul.R
 import com.stear.mahsul.databinding.ActivitySignUpBinding
 import com.stear.mahsul.repository.Repository
@@ -26,6 +28,9 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
+
+
+
 
         //Mvvm
         val repo: Repository by lazy { Repository() }
@@ -74,6 +79,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         ad.setIcon(R.drawable.baseline_verified_24)
 
         ad.setPositiveButton("Tamam") { dialogInterface, i ->
+            Firebase.auth.signOut()
             finish()
         }
         ad.create().show()

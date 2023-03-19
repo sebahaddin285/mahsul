@@ -26,4 +26,8 @@ class Repository() {
 
     fun getDb() = FirebaseSource.getDb()
 
+    fun saveMahsulAdd(map : HashMap<String,Any>) = FirebaseSource.saveMahsulAdd(map)
+
+    fun getMahsul() = FirebaseSource.getMahsul()
+
 }

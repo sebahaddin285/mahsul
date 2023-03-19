@@ -38,6 +38,10 @@ class FirebaseSource {
 
         fun getDb() = firebaseStore.firestore
 
+        fun saveMahsulAdd(map : HashMap<String,Any>) = firebaseStore.firestore.collection("mahsuller").add(map)
+
+        fun getMahsul() = firebaseStore.firestore.collection("mahsuller")
+
     }
 
 
