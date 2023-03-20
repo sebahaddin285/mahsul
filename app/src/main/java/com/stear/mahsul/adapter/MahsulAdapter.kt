@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import com.stear.mahsul.R
 import com.stear.mahsul.model.Mahsul
 import com.stear.mahsul.utils.Util
+import com.stear.mahsul.view.MahsulListFragmentDirections
 import java.text.NumberFormat
 import java.util.*
 
@@ -47,6 +49,11 @@ class MahsulAdapter (val mContext: Context) : RecyclerView.Adapter<MahsulAdapter
             priceText.text = Util.currencyFormatter(list.priceText) + " TL"
 
             Picasso.get().load(list.photoUrl).into(imagePhoto)
+
+            holder.ilanCardView.setOnClickListener(){
+                val pass = MahsulListFragmentDirections.goToDetail(list.titleText,list.destinationText,list.turText,list.eMail,list.priceText,list.photoUrl)
+                Navigation.findNavController(it).navigate(pass)
+            }
         }
 
 

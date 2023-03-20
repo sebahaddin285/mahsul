@@ -26,6 +26,7 @@ class MahsulListFragmentViewModel(val repository: Repository) : ViewModel() {
                         it.get("turText").toString(),
                         it.get("priceText").toString(),
                         it.get("photoUrl").toString(),
+                        it.get("eMail").toString()
                     )
                     commingList.add(mahsul)
                 }

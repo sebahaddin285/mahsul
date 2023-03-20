@@ -125,7 +125,6 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
             })
 
             bottomSheetDialog.show()
-
         }
 
         viewModel.userInfo.observe(this) {
@@ -152,7 +151,6 @@ class SignInActivity : AppCompatActivity(), AuthListener, ResetListener {
                 finish()
             }
         }
-
 
     }
 

@@ -76,6 +76,7 @@ class MahsulAddFragment : Fragment() {
                 map.put("turText", _binding.turText.text.toString())
                 map.put("priceText", _binding.priceText.text.toString())
                 map.put("photoUrl", selectedImageUri.toString())
+                map.put("eMail",Firebase.auth.currentUser!!.email.toString())
                 viewModel.saveMahsulAdd(map)
             }
 

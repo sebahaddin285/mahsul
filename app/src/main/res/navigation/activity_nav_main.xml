@@ -13,6 +13,9 @@
         <action
             android:id="@+id/goToMahsulAdd"
             app:destination="@id/mahsulAddFragment" />
+        <action
+            android:id="@+id/goToDetail"
+            app:destination="@id/mahsulDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -24,4 +27,28 @@
         android:name="com.stear.mahsul.view.MahsulAddFragment"
         android:label="MahsulAddFragment"
         tools:layout="@layout/fragment_mahsul_add"/>
+    <fragment
+        android:id="@+id/mahsulDetailFragment"
+        android:name="com.stear.mahsul.view.MahsulDetailFragment"
+        android:label="MahsulDetailFragment"
+        tools:layout="@layout/fragment_mahsul_detail">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="destination"
+            app:argType="string" />
+        <argument
+            android:name="tur"
+            app:argType="string" />
+        <argument
+            android:name="eMail"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 </navigation>
